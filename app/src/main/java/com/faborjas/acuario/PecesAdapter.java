@@ -67,7 +67,7 @@ public class PecesAdapter extends RecyclerView.Adapter<PecesAdapter.PecesViewHol
         btnLimpiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PecesFragment.linpiarAcuario(acuario);
+                PecesFragment.limpiarAcuario(acuario);
             }
         });
         btnInsertarPez.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class PecesAdapter extends RecyclerView.Adapter<PecesAdapter.PecesViewHol
         btnAlimentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PecesFragment.alimentarPeces(acuario,10);
+                PecesFragment.alimentarPeces(acuario,50);
             }
         });
 

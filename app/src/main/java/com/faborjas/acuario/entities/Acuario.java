@@ -96,6 +96,16 @@ public class Acuario {
     acuario.setListaPeces(listaPeces);
     acuario.setNumPez(numPeces);
     }
+    public static void limpiarAcurio(Acuario acuario){
+        List<Pez> listaPeces = acuario.getListaPeces();
+        for (int i = 0; i < listaPeces.size(); i++) {
+            if (!listaPeces.get(i).isVivo()) {
+                listaPeces.remove(i);
+                i = i-1;
+            }
+        }
+        acuario.setListaPeces(listaPeces);
+    }
     public int mostrarPez(Acuario acuario){
         return acuario.getListaPeces().size();
     }
