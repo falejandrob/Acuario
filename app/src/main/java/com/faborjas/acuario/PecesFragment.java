@@ -80,6 +80,18 @@ public class PecesFragment extends Fragment {
         rvPeces.getAdapter().notifyDataSetChanged();
 
     }
+    public static void alimentarPeces(Acuario acuario, int raciones){
+        List<Pez> listaPeces = acuario.getListaPeces();
+        Random numRandom = new Random();
+        for (Pez pez: listaPeces) {
+            pez.setAlimentoActual(0);
+        }
+        for (int i = 0; i < raciones; i++) {
+            int nmr = numRandom.nextInt(listaPeces.size());
+            Pez.incrementarComida(listaPeces.get(nmr));
+        }
+        rvPeces.getAdapter().notifyDataSetChanged();
+    }
     public static void insertarPezAleatorio(Acuario acuario,Pez pez){
 
     }

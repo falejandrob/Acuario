@@ -76,6 +76,12 @@ public class PecesAdapter extends RecyclerView.Adapter<PecesAdapter.PecesViewHol
                 PecesFragment.generarPecesAleatorios(acuario);
             }
         });
+        btnAlimentar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PecesFragment.alimentarPeces(acuario,10);
+            }
+        });
 
         if (listaPeces.get(position).isVivo()){
             holder.tvIsVivo.setText("Vivo");
