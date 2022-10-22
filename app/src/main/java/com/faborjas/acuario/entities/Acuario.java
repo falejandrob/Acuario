@@ -1,5 +1,6 @@
 package com.faborjas.acuario.entities;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,14 @@ public class Acuario {
         this.numLitros = numLitros;
         this.limpio = limpio;
         this.listaPeces = new ArrayList<>();
+    }
+
+    public Acuario(String id, int numLitros, boolean limpio) {
+        this.id = id;
+        this.numPez = 0;
+        this.numLitros = numLitros;
+        this.limpio = limpio;
+        this.listaPeces=new ArrayList<>();
     }
 
     public Acuario() {
@@ -71,21 +80,26 @@ public class Acuario {
         this.listaPeces = listaPeces;
     }
 
-    public static void insertarPez(Acuario acuario, Pez pez){
+    public void insertarPez(Acuario acuario, Pez pez){
     int litros = acuario.getNumLitros();
-    int numPeces = acuario.getNumPez();
+    int numPeces = acuario.getListaPeces().size();
     int capacidad = litros/10;
-    List<Pez> listaPeces = new ArrayList<>();
-    if (capacidad > numPeces){
-        listaPeces.add(pez);
-    }
+    List<Pez> listaPeces = acuario.getListaPeces();
+        if (capacidad > numPeces){
+            if(acuario.isLimpio()){
+                listaPeces.add(pez);
+            }
+        }else {
+            pez.setVivo(false);
+            listaPeces.add(pez);
+        }
     acuario.setListaPeces(listaPeces);
-    listaPeces.clear();
+    acuario.setNumPez(numPeces);
     }
-    public static int mostrarPez(Acuario acuario){
+    public int mostrarPez(Acuario acuario){
         return acuario.getListaPeces().size();
     }
-    public static void linpiarAcuario(Acuario acuario) {
+    public void linpiarAcuario(Acuario acuario) {
         List<Pez> listaPeces = acuario.getListaPeces();
         for (int i = 0; i < listaPeces.size(); i++) {
             if (!listaPeces.get(i).isVivo()) {

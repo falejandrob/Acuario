@@ -6,6 +6,17 @@
         <item>Platy</item>
         <item>Carpa</item>
     </string-array>
+    <string-array name="nombres">
+        <item>Aisha</item>
+        <item>Ami</item>
+        <item>Asha</item>
+        <item>Ayka</item>
+        <item>Bindy</item>
+        <item>Bonnie</item>
+        <item>Brita</item>
+        <item>Cece</item>
+        <item>Ciara</item>
+    </string-array>
     <integer-array name="Raciones_Max">
         <item>2</item>
         <item>2</item>

@@ -5,8 +5,20 @@ public class Pez {
     private String nombre;
     private int alimentoMax;
     private int alimentoActual;
-    private String especia;
+    private String especie;
     private boolean vivo;
+
+    public Pez(String id, String nombre, int alimentoMax, String especie) {
+        this.id = id;
+        this.nombre = nombre;
+        this.alimentoMax = alimentoMax;
+        this.alimentoActual = 0;
+        this.especie = especie;
+        this.vivo = true;
+    }
+
+    public Pez() {
+    }
 
     public String getId() {
         return id;
@@ -41,11 +53,11 @@ public class Pez {
     }
 
     public String getEspecia() {
-        return especia;
+        return especie;
     }
 
     public void setEspecia(String especia) {
-        this.especia = especia;
+        this.especie = especia;
     }
 
     public boolean isVivo() {
