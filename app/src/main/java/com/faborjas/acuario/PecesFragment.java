@@ -90,6 +90,11 @@ public class PecesFragment extends Fragment {
             int nmr = numRandom.nextInt(listaPeces.size());
             Pez.incrementarComida(listaPeces.get(nmr));
         }
+        for (Pez pez: listaPeces) {
+            if (pez.getAlimentoActual() == 0){
+                pez.setVivo(false);
+            }
+        }
         rvPeces.getAdapter().notifyDataSetChanged();
     }
     public static void insertarPezAleatorio(Acuario acuario,Pez pez){
