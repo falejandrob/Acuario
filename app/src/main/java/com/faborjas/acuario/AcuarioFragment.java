@@ -33,7 +33,7 @@ public class AcuarioFragment extends Fragment {
     private AcuariosViewModel model;
     private RecyclerView rvAcuario;
     private static Activity activity;
-    private MainActivity mainActivity;
+    private MainActivity mainActivity;//Primero Creas Un Objeto MainActivity
 
     public AcuarioFragment() {
 
@@ -51,7 +51,7 @@ public class AcuarioFragment extends Fragment {
 
     private void initAcuario() {
         model = new ViewModelProvider(getActivity()).get(AcuariosViewModel.class);
-        mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();// Obtienes la actividad y la guardas en el mainActivity
         setTypeFish(getResources().getStringArray(R.array.peces));
         setMaxRations(getResources().getIntArray(R.array.Raciones_Max));
         setFishNames(getResources().getStringArray(R.array.nombres));
