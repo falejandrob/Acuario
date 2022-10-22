@@ -9,17 +9,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.faborjas.acuario.entities.Acuario;
 import com.faborjas.acuario.entities.Pez;
 
 import java.util.List;
+import java.util.Random;
 
 
 public class PecesFragment extends Fragment {
-    private RecyclerView rvPeces;
+    private static RecyclerView rvPeces;
     private Acuario acuario;
     private List<Pez> listaPeces;
+    private MainActivity mainActivity;
+    private TextView tvIdAcuario;
+    private Button btnLimpiar;
+    private Button btnInsertarPez;
+    private Button btnAlimentar;
 
 
     public PecesFragment(Acuario acuario) {
@@ -33,10 +41,47 @@ public class PecesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        tvIdAcuario = getView().findViewById(R.id.txt_IdAcuario);
+        btnLimpiar = getView().findViewById(R.id.btn_Limpiar);
+        btnInsertarPez = getView().findViewById(R.id.btn_insertarPez);
+        btnAlimentar = getView().findViewById(R.id.btn_Alimentar);
         listaPeces = acuario.getListaPeces();
         rvPeces = getView().findViewById(R.id.rv_Peces);
-        rvPeces.setAdapter(new PecesAdapter(getContext(),listaPeces));
+        mainActivity = (MainActivity) getActivity();
+        rvPeces.setAdapter(new PecesAdapter(getContext(),listaPeces,acuario,mainActivity,tvIdAcuario,btnLimpiar,btnInsertarPez,btnAlimentar));
         rvPeces.setLayoutManager(new LinearLayoutManager(getContext()));
+
+    }
+
+    public static void linpiarAcuario(Acuario acuario) {
+        List<Pez> listaPeces = acuario.getListaPeces();
+        for (int i = 0; i < listaPeces.size(); i++) {
+            if (!listaPeces.get(i).isVivo()) {
+                listaPeces.remove(i);
+                i = i-1;
+            }
+        }
+        acuario.setListaPeces(listaPeces);
+        rvPeces.getAdapter().notifyDataSetChanged();
+    }
+    public static void generarPecesAleatorios(Acuario acuario){
+        String[] fishNamesShop = AcuarioFragment.getFishNames();
+        String[] typeFishShop = AcuarioFragment.getTypeFish();
+        int[] maxRationsShop = AcuarioFragment.getMaxRations();
+
+        String id;
+        int pos;
+        String [] strings = acuario.getListaPeces().get(acuario.getListaPeces().size()-1).getId().split("-");
+        String j = strings[1];
+        id = "Cod-" + (Integer.parseInt(j) + 1);
+        pos = new Random().nextInt(4);
+        Pez pez = new Pez(id,fishNamesShop[new Random().nextInt(fishNamesShop.length)],maxRationsShop[pos],typeFishShop[pos]);
+        acuario.insertarPez(acuario,pez);
+        rvPeces.getAdapter().notifyDataSetChanged();
+
+    }
+    public static void insertarPezAleatorio(Acuario acuario,Pez pez){
+
     }
 
     @Override

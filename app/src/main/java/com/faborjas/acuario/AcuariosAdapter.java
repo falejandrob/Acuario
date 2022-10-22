@@ -47,7 +47,7 @@ public class AcuariosAdapter extends RecyclerView.Adapter<AcuariosAdapter.Acuari
     public void onBindViewHolder(@NonNull AcuariosAdapter.AcuariosViewHolder holder, int position) {
         holder.tvNombre.setText(acuarios.get(position).getId());
         holder.tvLitros.setText(String.valueOf(acuarios.get(position).getNumLitros()));
-        holder.tvNumPeces.setText(String.valueOf(acuarios.get(position).getNumPez()));
+        holder.tvNumPeces.setText(String.valueOf(acuarios.get(position).getListaPeces().size()));
         if (acuarios.get(position).isLimpio()){
             holder.tvIsLimpio.setText("Si");
         }else{
@@ -57,11 +57,20 @@ public class AcuariosAdapter extends RecyclerView.Adapter<AcuariosAdapter.Acuari
             @Override
             public void onClick(View v) {
 
-            main.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new PecesFragment(acuarios.get(holder.getAdapterPosition()))).commit();
+            loadFragment2(new PecesFragment(acuarios.get(holder.getAdapterPosition())));
 
             }
         });
 
+    }
+
+    public void loadFragment2(Fragment fragment){
+        main
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

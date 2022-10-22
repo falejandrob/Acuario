@@ -1,5 +1,8 @@
 package com.faborjas.acuario.entities;
 
+import android.util.Log;
+import android.widget.Toast;
+
 public class Pez {
     private String id;
     private String nombre;
@@ -66,5 +69,27 @@ public class Pez {
 
     public void setVivo(boolean vivo) {
         this.vivo = vivo;
+    }
+
+    @Override
+    public String toString() {
+        return "Pez{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", alimentoMax=" + alimentoMax +
+                ", alimentoActual=" + alimentoActual +
+                ", especie='" + especie + '\'' +
+                ", vivo=" + vivo +
+                '}';
+    }
+    public static void incrementarComida(Pez pez){
+        int aliAcTemp = pez.getAlimentoActual();
+        int aliMaxTemp = pez.getAlimentoMax();
+
+        if (aliAcTemp < aliMaxTemp ){
+            pez.setAlimentoActual(aliAcTemp + 1);
+        }else {
+            Log.e("INFO","Ya no hay mas espacio");
+        }
     }
 }

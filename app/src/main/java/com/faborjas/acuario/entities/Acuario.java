@@ -85,7 +85,7 @@ public class Acuario {
     int numPeces = acuario.getListaPeces().size();
     int capacidad = litros/10;
     List<Pez> listaPeces = acuario.getListaPeces();
-        if (capacidad > numPeces){
+        if (capacidad >= numPeces){
             if(acuario.isLimpio()){
                 listaPeces.add(pez);
             }
@@ -99,12 +99,5 @@ public class Acuario {
     public int mostrarPez(Acuario acuario){
         return acuario.getListaPeces().size();
     }
-    public void linpiarAcuario(Acuario acuario) {
-        List<Pez> listaPeces = acuario.getListaPeces();
-        for (int i = 0; i < listaPeces.size(); i++) {
-            if (!listaPeces.get(i).isVivo()) {
-                listaPeces.remove(i);
-            }
-        }
-    }
+
 }

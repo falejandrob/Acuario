@@ -20,6 +20,7 @@ import com.faborjas.acuario.entities.Acuario;
 import com.faborjas.acuario.entities.Pez;
 import com.faborjas.acuario.viewmodels.AcuariosViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,6 +35,7 @@ public class AcuarioFragment extends Fragment {
     private RecyclerView rvAcuario;
     private static Activity activity;
     private MainActivity mainActivity;//Primero Creas Un Objeto MainActivity
+    private static int positionlist;
 
     public AcuarioFragment() {
 
@@ -60,12 +62,19 @@ public class AcuarioFragment extends Fragment {
         Log.d("PRUEBA","Esto funciona");
         for (Acuario acuario: acuarioList) {
             Log.d("ACUARIOLIST",acuarioList.toString());
+            for (Pez pez:acuario.getListaPeces()) {
+                Log.d("PECESLIST",acuarioList.toString());
+            }
         }
         rvAcuario = getView().findViewById(R.id.rv_Acuarios);
         rvAcuario.setAdapter(new AcuariosAdapter(getContext(),acuarioList,mainActivity));
         rvAcuario.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
+    public static void getAdapterPositionList(int position){
+        positionlist = position;
+    }
+
 
 
     @Override
@@ -73,19 +82,19 @@ public class AcuarioFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_acuario, container, false);
     }
 
-    private static int[] getMaxRations() {
+    public static int[] getMaxRations() {
         return maxRations;
     }
 
-    private static void setMaxRations(int[] maxRations) {
+    public static void setMaxRations(int[] maxRations) {
         AcuarioFragment.maxRations = maxRations;
     }
 
-    private static String[] getTypeFish() {
+    public static String[] getTypeFish() {
         return typeFish;
     }
 
-    private static void setTypeFish(String[] typeFish) {
+    public static void setTypeFish(String[] typeFish) {
         AcuarioFragment.typeFish = typeFish;
     }
 
@@ -98,23 +107,25 @@ public class AcuarioFragment extends Fragment {
     }
 
 
-    private class Tienda{
+    public class Tienda{
+        String[] fishNamesShop = getFishNames();
+        String[] typeFishShop = getTypeFish();
+        int[] maxRationsShop = getMaxRations();
+
         public Tienda() {
         }
 
         private void generateShop(){
             String id = "";
-            String[] fishNamesShop = getFishNames();
-            String[] typeFishShop = getTypeFish();
-            int[] maxRationsShop = getMaxRations();
+
             int pos;
             AcuariosViewModel model = new ViewModelProvider(getActivity()).get(AcuariosViewModel.class);
-            List<Acuario> localAcuarioList = model.getAcuarioList();
+            List<Acuario> localAcuarioList = new ArrayList<>();
             for (int i = 0; i < ThreadLocalRandom.current().nextInt(4,7); i++) {
-                id = "Cod" + String.valueOf(i);
+                id = "Cod-" + String.valueOf(i);
                 Acuario acuario = new Acuario(id,ThreadLocalRandom.current().nextInt(60,101),true);
                 for (int j = 0; j < ThreadLocalRandom.current().nextInt(8,12); j++) {
-                    id = "Cod" + String.valueOf(j);
+                    id = "Cod-" + String.valueOf(j);
                     pos = new Random().nextInt(4);
                     Pez pez = new Pez(id,fishNamesShop[new Random().nextInt(fishNamesShop.length)],maxRationsShop[pos],typeFishShop[pos]);
                     acuario.insertarPez(acuario,pez);
@@ -123,5 +134,6 @@ public class AcuarioFragment extends Fragment {
             }
             model.setAcuarioList(localAcuarioList);
         }
+
     }
 }
